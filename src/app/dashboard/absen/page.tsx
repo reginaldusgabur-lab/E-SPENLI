@@ -339,6 +339,9 @@ const StatusFeedbackOverlay = ({ status, locationError, onClose, userData }: { s
 
     const showQuote = useMemo(() => (status === 'success_in' || status === 'success_out') && userData?.role !== 'admin', [status, userData]);
     const attendanceType = useMemo(() => {
+        // BUG FIX: The quote logic was inverted. This corrects it.
+        // When attendance is successful (success_in), we need an 'in' quote.
+        // When checkout is successful (success_out), we need an 'out' quote.
         if (status === 'success_in') return 'in';
         if (status === 'success_out') return 'out';
         return null;
