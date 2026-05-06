@@ -1,15 +1,19 @@
-
-import { configureGenkit } from '@genkit-ai/core';
+import { defineConfig } from 'genkit';
 import { googleAI, gemini15Flash } from '@genkit-ai/google-genai';
 import { firebase } from '@genkit-ai/firebase';
 
-// Konfigurasi Genkit disederhanakan untuk selalu menggunakan Environment Variables.
-// Ini adalah praktik terbaik untuk platform serverless seperti Vercel.
-export const config = configureGenkit({
+/**
+ * PERBAIKAN FINAL (berdasarkan log build Vercel yang baru):
+ * File ini diperbarui untuk menggunakan sintaks Genkit modern.
+ * Fungsi `configureGenkit` yang usang telah diganti dengan `defineConfig`.
+ * Impor inti sekarang berasal dari 'genkit' bukan '@genkit-ai/core'.
+ * Ini akan menyelesaikan error "no exported member 'configureGenkit'".
+ */
+export const config = defineConfig({
   plugins: [
-    firebase(), // Mengaktifkan logging dan tracing ke Firebase.
-    // Plugin googleAI akan secara otomatis menggunakan environment variable
-    // GOOGLE_GENAI_API_KEY jika tidak ada `apiKey` yang disediakan di sini.
+    // Plugin firebase() dan googleAI() akan secara otomatis menggunakan
+    // environment variables yang diatur di Vercel.
+    firebase(),
     googleAI(),
   ],
   logLevel: 'debug',
