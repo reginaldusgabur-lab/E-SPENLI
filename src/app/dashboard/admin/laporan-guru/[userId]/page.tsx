@@ -1,4 +1,3 @@
-'use server';
 
 // Minimal Test Component
 // This is to test the build environment itself.
