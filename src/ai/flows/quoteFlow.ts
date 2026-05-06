@@ -1,10 +1,5 @@
-'use server';
 /**
  * @fileOverview Flow untuk menghasilkan kutipan motivasi/lucu.
- *
- * - getQuote - Fungsi untuk mendapatkan kutipan berdasarkan kategori dan jenis absensi.
- * - QuoteInput - Tipe input untuk flow.
- * - QuoteOutput - Tipe output untuk flow.
  */
 
 import { defineFlow } from '@genkit-ai/core';
@@ -33,7 +28,7 @@ export type QuoteOutput = z.infer<typeof QuoteOutputSchema>;
 
 export async function getQuote(input: QuoteInput): Promise<QuoteOutput> {
   const flowResult = await quoteFlow.run(input);
-  return flowResult.output()!;
+  return flowResult as unknown as QuoteOutput;
 }
 
 const quotePromptTemplate = `Anda adalah seorang penulis kreatif yang ahli membuat kutipan singkat untuk para pendidik.
@@ -63,14 +58,13 @@ Jenis Absensi: {{attendanceType}}
 Pastikan output Anda selalu dalam format JSON yang valid tanpa tambahan karakter atau penjelasan.
 `;
 
-export const quoteFlow = defineFlow(
-  'quoteFlow', // Argumen 1: Nama flow
-  { // Argumen 2: Skema I/O
-    inputSchema: QuoteInputSchema,
-    outputSchema: QuoteOutputSchema,
-  },
-  // Argumen 3: Fungsi implementasi
-  async (input) => {
+// Mengembalikan ke sintaks objek tunggal yang BENAR.
+// Error sebelumnya disebabkan oleh IDE yang menampilkan cache lama.
+export const quoteFlow = defineFlow({
+  name: 'quoteFlow',
+  inputSchema: QuoteInputSchema,
+  outputSchema: QuoteOutputSchema,
+  handler: async (input) => {
     const llmResponse = await model.generate({
       prompt: {
         text: quotePromptTemplate,
@@ -81,6 +75,6 @@ export const quoteFlow = defineFlow(
       },
     });
 
-    return llmResponse.output()!;
-  }
-);
+    return llmResponse.output!;
+  },
+});
