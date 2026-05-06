@@ -62,7 +62,8 @@ Jenis Absensi: {{attendanceType}}
 Pastikan output Anda selalu dalam format JSON yang valid tanpa tambahan karakter atau penjelasan.
 `;
 
-// FIX: Mengembalikan ke sintaks 3-argumen (lama) agar sesuai dengan cache dependensi Vercel
+// FINAL FIX: Mengembalikan ke sintaks 3-argumen (lama) agar sesuai dengan cache dependensi Vercel.
+// Perubahan ini dipaksa untuk membuat commit hash baru.
 export const quoteFlow = defineFlow(
   'quoteFlow',
   QuoteInputSchema,
