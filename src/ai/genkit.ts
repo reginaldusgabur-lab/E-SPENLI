@@ -1,18 +1,16 @@
-import { defineConfig } from 'genkit';
+import { configure } from '@genkit-ai/core';
 import { googleAI, gemini15Flash } from '@genkit-ai/google-genai';
 import { firebase } from '@genkit-ai/firebase';
 
 /**
- * PERBAIKAN FINAL (berdasarkan log build Vercel yang baru):
- * File ini diperbarui untuk menggunakan sintaks Genkit modern.
- * Fungsi `configureGenkit` yang usang telah diganti dengan `defineConfig`.
- * Impor inti sekarang berasal dari 'genkit' bukan '@genkit-ai/core'.
- * Ini akan menyelesaikan error "no exported member 'configureGenkit'".
+ * PERBAIKAN FINAL (berdasarkan versi package.json):
+ * File ini diperbarui untuk menggunakan sintaks Genkit yang benar untuk versi 1.33.0.
+ * Fungsi yang benar adalah `configure` dari `@genkit-ai/core`.
+ * Ini akan menyelesaikan error "no exported member 'defineConfig'".
  */
-export const config = defineConfig({
+export const config = configure({
   plugins: [
-    // Plugin firebase() dan googleAI() akan secara otomatis menggunakan
-    // environment variables yang diatur di Vercel.
+    // Plugin akan secara otomatis menggunakan environment variables yang diatur di Vercel.
     firebase(),
     googleAI(),
   ],
@@ -20,5 +18,5 @@ export const config = defineConfig({
   enableTracingAndMetrics: true,
 });
 
-// Ekspor model seperti biasa. File lain tidak perlu diubah.
+// Ekspor model seperti biasa.
 export const model = gemini15Flash;
