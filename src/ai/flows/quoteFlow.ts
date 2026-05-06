@@ -62,13 +62,12 @@ Jenis Absensi: {{attendanceType}}
 Pastikan output Anda selalu dalam format JSON yang valid tanpa tambahan karakter atau penjelasan.
 `;
 
-// PERBAIKAN FINAL: Kembali ke sintaks objek tunggal yang modern,
-// sesuai dengan instalasi dependensi yang baru.
-export const quoteFlow = defineFlow({
-  name: 'quoteFlow',
-  inputSchema: QuoteInputSchema,
-  outputSchema: QuoteOutputSchema,
-  async handler(input) {
+// FIX: Mengembalikan ke sintaks 3-argumen (lama) agar sesuai dengan cache dependensi Vercel
+export const quoteFlow = defineFlow(
+  'quoteFlow',
+  QuoteInputSchema,
+  QuoteOutputSchema,
+  async (input) => {
     const llmResponse = await model.generate({
       prompt: {
         text: quotePromptTemplate,
@@ -80,5 +79,5 @@ export const quoteFlow = defineFlow({
     });
 
     return llmResponse.output!;
-  },
-});
+  }
+);
