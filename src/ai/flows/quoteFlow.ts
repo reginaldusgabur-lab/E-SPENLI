@@ -6,6 +6,7 @@ import { defineFlow } from '@genkit-ai/core';
 import { model } from '@/ai/genkit'; // Mengimpor model yang sudah dikonfigurasi
 import { z } from 'zod';
 
+// Mendefinisikan skema input menggunakan Zod
 const QuoteInputSchema = z.object({
   category: z
     .string()
@@ -16,6 +17,7 @@ const QuoteInputSchema = z.object({
 });
 export type QuoteInput = z.infer<typeof QuoteInputSchema>;
 
+// Mendefinisikan skema output menggunakan Zod
 const QuoteOutputSchema = z.object({
   quote: z
     .string()
@@ -26,11 +28,13 @@ const QuoteOutputSchema = z.object({
 });
 export type QuoteOutput = z.infer<typeof QuoteOutputSchema>;
 
+// Fungsi helper untuk memanggil flow (opsional, tapi praktik yang baik)
 export async function getQuote(input: QuoteInput): Promise<QuoteOutput> {
   const flowResult = await quoteFlow.run(input);
   return flowResult as unknown as QuoteOutput;
 }
 
+// Template prompt untuk model bahasa
 const quotePromptTemplate = `Anda adalah seorang penulis kreatif yang ahli membuat kutipan singkat untuk para pendidik.
 
 Audiens: {{category}}
@@ -58,13 +62,13 @@ Jenis Absensi: {{attendanceType}}
 Pastikan output Anda selalu dalam format JSON yang valid tanpa tambahan karakter atau penjelasan.
 `;
 
-// Mengembalikan ke sintaks objek tunggal yang BENAR.
-// Error sebelumnya disebabkan oleh IDE yang menampilkan cache lama.
+// PERBAIKAN FINAL: Kembali ke sintaks objek tunggal yang modern,
+// sesuai dengan instalasi dependensi yang baru.
 export const quoteFlow = defineFlow({
   name: 'quoteFlow',
   inputSchema: QuoteInputSchema,
   outputSchema: QuoteOutputSchema,
-  handler: async (input) => {
+  async handler(input) {
     const llmResponse = await model.generate({
       prompt: {
         text: quotePromptTemplate,

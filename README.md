@@ -48,3 +48,26 @@ Peran pengguna utama yang menjadi fokus dari sistem absensi harian.
 - **Tur Orientasi (Onboarding)**: Saat pertama kali login, pengguna baru akan dipandu melalui fitur-fitur utama yang relevan dengan perannya untuk memastikan adopsi yang cepat dan mudah.
 - **Antarmuka Modern**: Dibangun dengan Next.js, TypeScript, dan Tailwind CSS untuk performa tinggi dan pengalaman pengguna yang responsif.
 - **Backend Realtime**: Menggunakan Firebase (Firestore & Authentication) untuk sinkronisasi data yang cepat dan andal.
+
+## Konfigurasi Kunci API (Penting untuk Admin)
+
+Fitur "Kutipan Motivasi AI" ditenagai oleh Google Gemini. Agar fitur ini berfungsi, sistem memerlukan Kunci API (API Key) yang valid.
+
+**PENTING:** Kunci API adalah **rahasia** dan harus ditangani dengan sangat hati-hati untuk mencegah penyalahgunaan. **JANGAN PERNAH** menempatkan kunci API langsung di dalam kode sumber (`.ts`, `.tsx`, `.js`).
+
+Metode yang benar dan aman untuk mengonfigurasi kunci ini adalah melalui **Environment Variables** di platform hosting Anda (Vercel).
+
+### Panduan untuk Admin (di Vercel):
+
+1.  **Dapatkan Kunci API Anda**: Buat dan salin Kunci API Anda dari [Google AI Studio](https://aistudio.google.com/app/apikey).
+2.  **Buka Proyek di Vercel**: Login ke akun Vercel Anda dan buka dasbor proyek E-SPENLI.
+3.  **Masuk ke Pengaturan**: Arahkan ke tab **Settings**.
+4.  **Pilih Environment Variables**: Di menu sebelah kiri, klik **Environment Variables**.
+5.  **Tambahkan Kunci Baru**:
+    *   **Name**: Masukkan nama variabel persis seperti ini: `GEMINI_API_KEY`
+    *   **Value**: Tempel (paste) Kunci API yang telah Anda salin.
+    *   Pastikan semua *environment* (Production, Preview, Development) terpilih.
+6.  **Simpan**: Klik tombol **Save**.
+7.  **Redeploy**: Untuk memastikan aplikasi menggunakan variabel yang baru, picu *redeploy* baru dari tab **Deployments**.
+
+Setelah langkah-langkah ini selesai, aplikasi akan dapat mengakses kunci API dengan aman di sisi server, dan fitur kutipan AI akan berfungsi tanpa mengekspos rahasia Anda.
