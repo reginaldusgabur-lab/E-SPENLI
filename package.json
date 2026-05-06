@@ -44,7 +44,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "firebase": "10.15.0",
+    "firebase": "10.14.0",
     "firebase-admin": "^13.3.0",
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.11.4",
