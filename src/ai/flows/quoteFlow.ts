@@ -34,7 +34,6 @@ export async function getQuote(input: QuoteInput): Promise<QuoteOutput> {
   return flowResult as unknown as QuoteOutput;
 }
 
-// Template prompt untuk model bahasa
 const quotePromptTemplate = `Anda adalah seorang penulis kreatif yang ahli membuat kutipan singkat untuk para pendidik.
 
 Audiens: {{category}}
@@ -62,13 +61,16 @@ Jenis Absensi: {{attendanceType}}
 Pastikan output Anda selalu dalam format JSON yang valid tanpa tambahan karakter atau penjelasan.
 `;
 
-// PERBAIKAN FINAL: Kembali ke sintaks objek tunggal yang modern,
-// sesuai dengan instalasi dependensi yang baru.
-export const quoteFlow = defineFlow({
-  name: 'quoteFlow',
-  inputSchema: QuoteInputSchema,
-  outputSchema: QuoteOutputSchema,
-  async handler(input) {
+// HACK: Menggunakan sintaks 3 argumen LAMA untuk mengakomodasi cache build Vercel yang usang.
+// Ini adalah perbaikan sementara untuk membuat build berhasil.
+// Format: defineFlow(name, schemas, handler)
+export const quoteFlow = defineFlow(
+  'quoteFlow', // Argumen 1: Nama flow (string)
+  z.object({      // Argumen 2: Skema (Zod object)
+    input: QuoteInputSchema,
+    output: QuoteOutputSchema,
+  }),
+  async (input) => { // Argumen 3: Handler (fungsi async)
     const llmResponse = await model.generate({
       prompt: {
         text: quotePromptTemplate,
@@ -80,5 +82,5 @@ export const quoteFlow = defineFlow({
     });
 
     return llmResponse.output!;
-  },
-});
+  }
+);
