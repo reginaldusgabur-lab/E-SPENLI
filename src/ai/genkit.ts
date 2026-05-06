@@ -1,22 +1,14 @@
-import { configure } from '@genkit-ai/core';
+import { genkit } from 'genkit';
 import { googleAI, gemini15Flash } from '@genkit-ai/google-genai';
-import { firebase } from '@genkit-ai/firebase';
 
-/**
- * PERBAIKAN FINAL (berdasarkan versi package.json):
- * File ini diperbarui untuk menggunakan sintaks Genkit yang benar untuk versi 1.33.0.
- * Fungsi yang benar adalah `configure` dari `@genkit-ai/core`.
- * Ini akan menyelesaikan error "no exported member 'defineConfig'".
- */
-export const config = configure({
+export const ai = genkit({
   plugins: [
-    // Plugin akan secara otomatis menggunakan environment variables yang diatur di Vercel.
-    firebase(),
-    googleAI(),
+    googleAI({
+      // Menggunakan nama variabel lingkungan dari README
+      apiKey: process.env.GEMINI_API_KEY,
+    }),
   ],
-  logLevel: 'debug',
-  enableTracingAndMetrics: true,
 });
 
-// Ekspor model seperti biasa.
+// Export model
 export const model = gemini15Flash;
