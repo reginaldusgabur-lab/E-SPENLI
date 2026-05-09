@@ -3,7 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { useUser, useDoc, useFirestore, useMemoFirebase, useAuth } from '@/firebase';
+import { useUser, useFirestore, useMemoFirebase, useAuth } from '@/firebase';
+import { useDoc } from '@/firebase/firestore/use-doc'; // FIX: Direct import
 import { doc } from 'firebase/firestore';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
