@@ -1,5 +1,5 @@
 import { genkit } from 'genkit';
-import { googleAI, geminiPro } from '@genkit-ai/google-genai';
+import { googleAI } from '@genkit-ai/google-genai';
 
 export const ai = genkit({
   plugins: [
@@ -9,5 +9,5 @@ export const ai = genkit({
   ],
 });
 
-// Export model
-export const model = geminiPro;
+// Definisikan model menggunakan factory untuk stabilitas
+export const model = googleAI.model('gemini-pro');
