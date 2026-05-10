@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { doc, getDoc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
+// CORRECTED IMPORT: Added useDoc to the main firebase import
 import { useFirestore, useUser, useCollection, useDoc, useMemoFirebase } from '@/firebase';
 import { eachDayOfInterval, startOfMonth, endOfMonth, format, parse, isSameDay, isBefore, startOfDay, addMonths, subMonths, isSameMonth, isWithinInterval, endOfDay, setHours, setMinutes } from 'date-fns';
 import { id } from 'date-fns/locale';
@@ -149,6 +150,7 @@ export default function HeadmasterUserAttendanceDetailPage() {
         return null;
     });
 
+    // The .filter(Boolean) correctly removes nulls, so `a` and `b` in sort are guaranteed to be non-null.
     return report.filter(Boolean).sort((a, b) => (b.date.getTime()) - (a.date.getTime()));
 
   }, [attendanceHistory, leaveHistory, schoolConfig, monthlyConfig, currentMonth, isLoading]);
