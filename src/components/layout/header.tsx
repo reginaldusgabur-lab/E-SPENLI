@@ -26,6 +26,7 @@ import {
 import { LogOut, Settings, ShieldAlert } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { ModeToggle } from '@/components/theme-toggle';
+import NetworkStatus from '@/components/utilities/NetworkStatus'; // Import NetworkStatus
 
 export function Header({ isTransparent }: { isTransparent?: boolean }) {
   const firestore = useFirestore();
@@ -73,7 +74,7 @@ export function Header({ isTransparent }: { isTransparent?: boolean }) {
 
   return (
     <header className={headerClasses}>
-      {/* Left section: User Profile */}
+      {/* Left section: User Profile and utilities */}
       <div className="flex items-center gap-3">
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -112,6 +113,8 @@ export function Header({ isTransparent }: { isTransparent?: boolean }) {
             </DropdownMenuContent>
         </DropdownMenu>
         <ModeToggle />
+        {/* ADDED NETWORK STATUS INDICATOR */}
+        <NetworkStatus />
       </div>
 
       {/* Right Section: Logo with Dialog */}
