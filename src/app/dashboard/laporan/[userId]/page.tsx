@@ -67,7 +67,7 @@ export default function UserReportDetailPage() {
                 }
                 setUserData(userSnap.data());
 
-                const reportData = await fetchUserMonthlyReportData(firestore, userId, currentMonth, schoolConfigData);
+                const reportData = await fetchUserMonthlyReportData(firestore, userId, currentMonth, schoolConfigData, {});
                 setMonthlyReportData(reportData);
 
             } catch (err: any) {

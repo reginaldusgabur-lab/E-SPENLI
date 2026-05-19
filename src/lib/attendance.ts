@@ -23,14 +23,13 @@ interface AttendanceData {
 }
 
 export interface MonthlyReportData {
-  id: string;
-  date: string;
-  status: string;
-  description: string;
-  checkInTime: string | null;
-  checkOutTime: string | null;
+    id: string;
+    date: string;
+    status: string;
+    description: string;
+    checkInTime: string | null;
+    checkOutTime: string | null;
 }
-
 
 // *** DEFINITIVE FIX FOR "MACET" & "DATA HILANG" ***
 // The root cause was an incorrect query strategy that either hung the database or returned no data.

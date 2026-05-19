@@ -83,7 +83,7 @@ export default function LaporanPage() {
     }
 
     try {
-        const rawReport = await fetchUserMonthlyReportData(firestore, user.uid, currentMonth, schoolConfig);
+        const rawReport = await fetchUserMonthlyReportData(firestore, user.uid, currentMonth, schoolConfig, {});
         
         const formattedReport: ReportItem[] = rawReport.map((record: any) => ({
             id: record.id,

@@ -275,6 +275,7 @@ export default function KepalaSekolahDashboardPage() {
     const enrichedRecentAttendance = sortedRecentAttendance.map((att, index) => {
         return {
             ...att,
+            id: att.id,
             sequence: index + 1,
             name: userMap.get(att.userId)?.name || 'Pengguna tidak dikenal',
             checkInTimeFormatted: att.checkInTime ? att.checkInTime.toDate().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : '-',
