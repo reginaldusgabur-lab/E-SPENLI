@@ -57,7 +57,7 @@ export default function LoginPage() {
 
   const { toast } = useToast();
   const router = useRouter();
-  const { user, isUserLoading } = useUser();
+  const { user, isUserLoading, userError } = useUser();
 
   const appLogo = PlaceHolderImages.find(p => p.id === 'app-logo');
 
@@ -115,7 +115,10 @@ export default function LoginPage() {
     }
   };
 
-  if (!isMounted || isUserLoading || (isMounted && user)) {
+  const showAuthSpinner =
+    !isMounted || (isUserLoading && !userError) || (isMounted && !!user);
+
+  if (showAuthSpinner) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />

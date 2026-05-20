@@ -97,3 +97,28 @@ GitHub Actions akan otomatis:
 - dan mendeploy ke Vercel.
 
 Setelah langkah-langkah ini selesai, aplikasi akan dapat mengakses kunci API dengan aman di sisi server, dan fitur kutipan AI akan berfungsi tanpa mengekspos rahasia Anda.
+
+## Pengembangan Lokal
+
+1. Salin `.env.example` ke `.env.local` dan isi kredensial Firebase (lihat daftar variabel di file tersebut).
+2. Jalankan:
+   ```bash
+   npm install
+   npm run dev
+   ```
+3. Buka `http://localhost:3000`.
+
+Tanpa `GEMINI_API_KEY`, kutipan absensi tetap berfungsi memakai daftar manual di server.
+
+## Instal sebagai PWA
+
+- **Android (Chrome):** Menu ⋮ → *Install app* / *Add to Home screen*.
+- **iOS (Safari):** *Share* → *Add to Home Screen*.
+- **Desktop:** Gunakan tombol install di bilah alamat Chrome/Edge, atau banner *Instal E-SPENLI* di aplikasi.
+
+PWA diaktifkan pada build produksi (`@ducanh2912/next-pwa`). Manifest: `src/app/manifest.ts`.
+
+## Dokumentasi Tambahan
+
+- [Panduan deploy & secret](docs/DEPLOY.md)
+- [Checklist verifikasi per peran](docs/ROLE_AUDIT.md)

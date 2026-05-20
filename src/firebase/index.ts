@@ -1,20 +1,29 @@
 'use client';
 
 import { firebaseConfig } from '@/firebase/config';
-import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
+import { getAuth, type Auth } from 'firebase/auth';
+import { getFirestore, type Firestore } from 'firebase/firestore';
 
-// Create a singleton instance of Firebase services.
-// This ensures that Firebase is initialized only once across the entire application.
-const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const firestore = getFirestore(app);
+const isConfigValid = Boolean(
+  firebaseConfig.apiKey &&
+    firebaseConfig.authDomain &&
+    firebaseConfig.projectId
+);
 
-// Export the initialized services directly for use in other parts of the app.
-export { app as firebaseApp, auth, firestore };
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let firestore: Firestore | undefined;
 
-// Re-export other necessary hooks and utilities
+if (isConfigValid) {
+  app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  firestore = getFirestore(app);
+}
+
+export const firebaseApp = app;
+export { auth, firestore };
+
 export * from './provider';
 export * from './client-provider';
 export * from './firestore/use-collection';
